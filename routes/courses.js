@@ -8,7 +8,6 @@ const service = new CourseService();
 router.get('/:userName', async (req, res) => {
   const { userName } = req.params;
   const courses = await service.find(userName);
-  console.log(url);
   res.json(courses);
 });
 
