@@ -1,32 +1,31 @@
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config({ path: './.env' });
 const routerApi = require('./routes/index');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3020;
-const { logErrors, errorHandler, boomErrorHandler } = require('./midlewares/error.handler');
+const {
+  logErrors,
+  errorHandler,
+  boomErrorHandler,
+} = require('./midlewares/error.handler');
 app.use(express.json());
 const whitelist = ['https://agleondev.com'];
 const options = {
-  origin: (origin, callback) =>{
-    if(whitelist.includes(origin) || !origin){
-      callback(null,true)
-    } else{
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
       callback(new Error('No permitido'));
     }
-  }
-}
+  },
+};
 app.use(cors(options));
-
-
-
-
-
 
 app.get('/', (req, res) => {
   res.send('Hola mi server en express');
 });
-
-
 
 routerApi(app);
 
