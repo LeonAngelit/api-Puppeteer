@@ -5,7 +5,7 @@ class CourseService {
     this.courses = [];
   }
 
-  async getCourses(url, userName) {
+  async getCourses(userName) {
     let browser = await puppeteer.launch({args: ['--no-sandbox']});
 
     try {
@@ -16,7 +16,7 @@ class CourseService {
       await page.setUserAgent(
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
       );
-      await page.goto(`${url}${userName}`);
+      await page.goto(`https://platzi.com/p/${userName}`);
       this.courses = await page.evaluate(() => {
         let courses = window.data.courses;
         let array = [];
@@ -37,8 +37,8 @@ class CourseService {
     return this.courses;
   }
 
-  find(url, userName) {
-    return this.getCourses(url, userName);
+  find(userName) {
+    return this.getCourses(userName);
   }
 }
 
