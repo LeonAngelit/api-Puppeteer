@@ -6,7 +6,7 @@ class CourseService {
   }
 
   async getCourses(url, userName) {
-    let browser = await puppeteer.launch();
+    let browser = await puppeteer.launch({args: ['--no-sandbox']});
 
     try {
       let page = await browser.newPage();
