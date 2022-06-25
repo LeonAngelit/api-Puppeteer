@@ -8,17 +8,11 @@ const {
   errorHandler,
   boomErrorHandler,
 } = require('./midlewares/error.handler');
+
+
 app.use(express.json());
-const whitelist = ['https://agleondev.com'];
-const options = {
-  origin: (origin, callback) => {
-    if (whitelist.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('No permitido'));
-    }
-  },
-};
+
+//Para el ejemplo he dejado la api abierta desde cualquier dirección mediante CORS
 app.use(cors());
 
 app.get('/', (req, res) => {
