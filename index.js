@@ -28,3 +28,5 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log('My port' + port);
 });
+
+module.exports=app;
