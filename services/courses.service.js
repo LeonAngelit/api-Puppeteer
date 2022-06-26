@@ -1,4 +1,15 @@
-const puppeteer = require("puppeteer");
+let chrome = {};
+let puppeteer;
+
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+  // running on the Vercel platform.
+   chrome = require('chrome-aws-lambda');
+ puppeteer = require('puppeteer-core');
+} else {
+  // running locally.
+   puppeteer = require('puppeteer');
+}
+
 const boom = require("@hapi/boom");
 
 //Creamos la clase que instanciaremos en el archivo courses.js
@@ -13,7 +24,15 @@ class CourseService {
   //Pasamos la url y el nombre de usuario como parámetros
   async #getCourses(url, userName) {
     //Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
-    let browser = await puppeteer.launch({ args: ["--no-sandbox"] });
+    let browser = await puppeteer.launch(
+      {
+        args: ['--hide-scrollbars', '--disable-web-security'],
+        defaultViewport: chrome.defaultViewport,
+        executablePath: await chrome.executablePath,
+        headless: true,
+        ignoreHTTPSErrors: true,
+      }
+    );
     let page = await browser.newPage();
     await page.setExtraHTTPHeaders({
       "Accept-Language": "es-ES,es;q=0.9",
