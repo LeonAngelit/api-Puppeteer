@@ -26,9 +26,10 @@ class CourseService {
     //Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
     let browser = await puppeteer.launch(
       {
-        args: [...chrome.args, '--hide-scrollbars', '--disable-web-security', '--no-sandbox'],
+        args: chrome.args,
+        defaultViewport: chrome.defaultViewport,
         executablePath: await chrome.executablePath,
-        headless: true,
+        headless: chrome.headless,
         ignoreHTTPSErrors: true,
       }
     );
