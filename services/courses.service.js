@@ -31,6 +31,7 @@ class CourseService {
         executablePath: await chrome.executablePath,
         headless: true,
         ignoreHTTPSErrors: true,
+        ignoreDefaultArgs: ['--disable-extensions'],
       }
     );
     let page = await browser.newPage();
