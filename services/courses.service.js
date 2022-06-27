@@ -20,7 +20,6 @@ class CourseService {
 
 
   sch = schedule.scheduleJob('0 0 16 * * 0', ()=>{
-    console.log('realizando trabajo');
     this.#getCourses(this.url);
   });
 
