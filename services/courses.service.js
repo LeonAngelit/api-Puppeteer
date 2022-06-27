@@ -1,10 +1,8 @@
 let chrome = {};
 let puppeteer;
 
-
- chrome = require('chrome-aws-lambda');
- puppeteer = require('puppeteer-core');
-
+chrome = require("chrome-aws-lambda");
+puppeteer = require("puppeteer-core");
 
 const boom = require("@hapi/boom");
 
@@ -20,18 +18,16 @@ class CourseService {
   //Pasamos la url y el nombre de usuario como parámetros
   async #getCourses(url, userName) {
     //Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
-    let browser = await puppeteer.launch(
-      {
-        args: [...chrome.args, '--disable-web-security'],
-        defaultViewport: chrome.defaultViewport,
-        executablePath: 
-              process.env.NODE_ENV !== 'development' ? 
-              await chrome.executablePath :
-              '/bin/chromium',
-        headless: true,
-        ignoreHTTPSErrors: true,
-      }
-    );
+    let browser = await puppeteer.launch({
+      args: [...chrome.args, "--disable-web-security"],
+      defaultViewport: chrome.defaultViewport,
+      executablePath:
+        process.env.NODE_ENV !== "development"
+          ? await chrome.executablePath
+          : "/bin/chromium",
+      headless: true,
+      ignoreHTTPSErrors: true,
+    });
     let page = await browser.newPage();
     await page.setExtraHTTPHeaders({
       "Accept-Language": "es-ES,es;q=0.9",
