@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "glob-parent": "6.0.1"
   },
   "keywords": [],
   "author": "Leon Angelit <leo63582@gmail.com>",
@@ -14,11 +18,9 @@
   "dependencies": {
     "@hapi/boom": "^10.0.0",
     "chokidar": "^3.5.3",
-    "chrome-aws-lambda": "^9.1.0",
+    "chrome-aws-lambda": "^10.1.0",
     "cors": "^2.8.5",
-    "express": "^4.18.1",
-    "puppeteer": "^15.1.1",
-    "puppeteer-core": "^15.1.1"
+    "express": "^4.18.1"
   },
   "devDependencies": {
     "eslint": "^8.18.0",
