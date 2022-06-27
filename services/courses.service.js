@@ -1,5 +1,6 @@
 let chrome = {};
 let puppeteer;
+let schedule = require('node-schedule');
 
 
  chrome = require('chrome-aws-lambda');
@@ -10,15 +11,24 @@ const boom = require("@hapi/boom");
 
 //Creamos la clase que instanciaremos en el archivo courses.js
 class CourseService {
-  constructor() {
+  constructor(url) {
     this.courses = [];
+    this.#getCourses(url);
+    this.url = url;
+    this.sch.schedule();
   }
+
+
+  sch = schedule.scheduleJob('0 0 16 * * 0', ()=>{
+    console.log('realizando trabajo');
+    this.#getCourses(this.url);
+  });
 
   /*Aqui es donde usamos puppeteer para conseguir los datos y almacenarlos en la variable generada en el constructor
   hice el método privado para luego llamarla desde el método find*/
 
   //Pasamos la url y el nombre de usuario como parámetros
-  async #getCourses(url, userName) {
+  async #getCourses(url) {
     //Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
     let browser = await puppeteer.launch(
       {
@@ -42,7 +52,7 @@ class CourseService {
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
     );
     //Aquí vamos a la url :), una parte de la url está en una variable de entorno, y la otra es el username es el que le pasamos
-    await page.goto(`${url}${userName}`);
+    await page.goto(`${url}`);
 
     //Aquí almacenamos el resultado de la búsqueda de datos en la variable this.courses
     this.courses = await page.evaluate(() => {
@@ -69,14 +79,16 @@ class CourseService {
     //Si finalmente no hemos devuelto datos, devolvemos un error con boom diciendo que no hemos encontrado el nombre de usuario
     if (this.courses == undefined) {
       throw boom.notFound("Usuario no encontrado, revisa el nombre de usuario");
-    } else {
+    } 
       //En caso contrario devolvemos la información!
-      return this.courses;
-    }
   }
   //Este es el método público que he usado para acceder al privado
-  find(url, userName) {
-    return this.#getCourses(url, userName);
+  find() {
+    let tiempo = new Date();
+    if(tiempo.getDay() == 0 && tiempo.getHours == 16){
+     return this.#getCourses(this.url);
+    }
+    return this.courses;
   }
 }
 
