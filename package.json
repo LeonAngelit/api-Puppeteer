@@ -19,7 +19,8 @@
   "dependencies": {
     "@hapi/boom": "^10.0.0",
     "chokidar": "^3.5.3",
-    "chrome-aws-lambda": "^9.1.0",
+    "chrome-aws-lambda": "10.1.0",
+    "puppeteer-core": "10.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
