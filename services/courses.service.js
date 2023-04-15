@@ -1,6 +1,4 @@
-import { Puppeteer as puppeteer } from "puppeteer-core";
-
-import Chromium from "chrome-aws-lambda";
+import Chromium, { puppeteer } from "chrome-aws-lambda";
 
 const boom = require("@hapi/boom");
 
