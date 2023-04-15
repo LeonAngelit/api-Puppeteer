@@ -7,6 +7,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "lint": "eslint",
+    "vercel-build": "node node_modules/puppeteer/install.js",
     "preinstall": "npx npm-force-resolutions"
   },
   "resolutions": {
