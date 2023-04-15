@@ -2,7 +2,7 @@ let chrome = {};
 let puppeteer;
 
 chrome = require("chrome-aws-lambda");
-puppeteer = require("puppeteer-core");
+puppeteer = require("puppeteer");
 
 const boom = require("@hapi/boom");
 
@@ -19,12 +19,6 @@ class CourseService {
   async #getCourses(url, userName) {
     //Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
     let browser = await puppeteer.launch({
-      args: [...chrome.args, "--disable-web-security"],
-      defaultViewport: chrome.defaultViewport,
-      executablePath:
-        process.env.NODE_ENV !== "development"
-          ? await chrome.executablePath
-          : "/bin/chromium",
       headless: true,
       ignoreHTTPSErrors: true,
     });
@@ -50,7 +44,7 @@ class CourseService {
         //Elegí esta manera para almacenar los datos, en un array temporal que devuelvo
         let courses = window.data.courses;
         let array = [];
-        courses.forEach((curso) => {
+        courses.map((curso) => {
           array.push({
             title: curso.title,
             image: curso.badge,
