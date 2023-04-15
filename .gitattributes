@@ -1,2 +1,2 @@
-.chromeCache/puppeteer/chrome/win64-1108766/chrome-win/chrome.dll filter=lfs diff=lfs merge=lfs -text
 .chromeCache/puppeteer/chrome/win64-1108766/chrome-win/interactive_ui_tests.exe filter=lfs diff=lfs merge=lfs -text
+.chromeCache/puppeteer/chrome/win64-1108766/chrome-win/chrome.dll filter=lfs diff=lfs merge=lfs -text
