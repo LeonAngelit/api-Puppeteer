@@ -1,4 +1,6 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
+const dotenv = require("dotenv");
+dotenv.config();
 const USER = process.env.USER;
 const PASS = process.env.PASS;
 const CLUSTER = process.env.CLUSTER;

@@ -1,7 +1,4 @@
-let chrome = {};
 let puppeteer;
-
-chrome = require("chrome-aws-lambda");
 puppeteer = require("puppeteer");
 
 const boom = require("@hapi/boom");
