@@ -40,7 +40,6 @@ class DBService {
     try {
       await CLIENT.connect();
       let cursos = await COLLECTION.findOne({ _id: id });
-      if (cursos == undefined) cursos = await COLLECTION.findOne({ _id: id });
       return cursos;
     } catch (err) {
       console.error(
@@ -54,7 +53,6 @@ class DBService {
 
   async #insert(id, element) {
     try {
-      console.log(id);
       await CLIENT.connect();
       const IS_ADDED = await COLLECTION.findOne({ _id: id });
       IS_ADDED
