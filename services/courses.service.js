@@ -1,5 +1,7 @@
-let puppeteer;
-puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+
+const edgeChromium = require("chrome-aws-lambda");
+const executablePath = await edgeChromium.executablePath;
 
 const boom = require("@hapi/boom");
 
@@ -16,7 +18,9 @@ class CourseService {
   async #getCourses(url, userName) {
     //Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
     let browser = await puppeteer.launch({
+      executablePath,
       headless: true,
+      args: edgeChromium.args,
       ignoreHTTPSErrors: true,
     });
     let page = await browser.newPage();
