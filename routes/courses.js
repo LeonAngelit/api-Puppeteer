@@ -12,9 +12,11 @@ const db = new DBService();
 //Establecemos la ruta que desencadena la respuesta del servicio, usando el parámetro de la petición para buscar
 router.get("/:userName", async (req, res, next) => {
   try {
-    console.log(url);
     const { userName } = req.params;
-    const courses = await db.get(userName);
+    let courses = await db.get(userName);
+    while (courses == undefined) {
+      courses = await db.get(userName);
+    }
     res.json(courses.courses);
   } catch (error) {
     next(error);
