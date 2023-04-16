@@ -22,10 +22,9 @@ router.get("/:userName", async (req, res, next) => {
 
 router.get("/:userName/update", async (req, res, next) => {
   try {
-    console.log(url);
     const { userName } = req.params;
     const courses = await service.find(url, userName);
-    db.save(userName, courses);
+    await db.save(userName, courses);
     res.json(courses);
   } catch (error) {
     next(error);
