@@ -14,7 +14,6 @@ router.get("/:userName", async (req, res, next) => {
   try {
     const { userName } = req.params;
     let courses = await db.get(userName);
-    if (courses == undefined) courses = await db.get(userName);
     res.json(courses.courses);
   } catch (error) {
     next(error);

@@ -39,8 +39,9 @@ class DBService {
   async #retrieve(id) {
     try {
       await CLIENT.connect();
-      const CURSOS = await COLLECTION.findOne({ _id: id });
-      return CURSOS;
+      let cursos = await COLLECTION.findOne({ _id: id });
+      if (cursos == undefined) cursos = await COLLECTION.findOne({ _id: id });
+      return cursos;
     } catch (err) {
       console.error(
         `Something went wrong trying to find the documents: ${err}\n`
