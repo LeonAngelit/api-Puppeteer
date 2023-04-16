@@ -1,8 +1,6 @@
 const express = require("express");
 const CourseService = require("../services/courses.service");
 const DBService = require("../services/db.service");
-const dotenv = require("dotenv");
-dotenv.config();
 const router = express.Router();
 //Sacamos la url de la variable de entorno
 const url = process.env.URL;
