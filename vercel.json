@@ -1,5 +1,6 @@
 {
 	"version": 2,
+	"buildCommand": "vercel build && node node_modules/puppeteer-core/install.js;",
 	"builds": [
 		{
 			"src": "index.js",
