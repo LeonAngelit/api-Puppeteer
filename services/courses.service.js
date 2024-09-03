@@ -1,5 +1,4 @@
 const puppeteer = require("puppeteer-core");
-
 const edgeChromium = require("chrome-aws-lambda");
 
 const boom = require("@hapi/boom");
