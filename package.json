@@ -1,37 +1,37 @@
 {
-  "name": "coursesapi",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "lint": "eslint",
-    "preinstall": "npx npm-force-resolutions"
-  },
-  "resolutions": {
-    "glob-parent": "6.0.1"
-  },
-  "keywords": [],
-  "author": "Leon Angelit <leo63582@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "@hapi/boom": "^10.0.0",
-    "chokidar": "^3.5.3",
-    "chrome-aws-lambda": "10.1.0",
-    "puppeteer-core": "10.1.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.1",
-    "mongodb": "^5.2.0",
-    "nodemailer": "^6.7.5",
-    "puppeteer": "^19.9.0"
-  },
-  "devDependencies": {
-    "eslint": "^8.18.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "nodemon": "^1.3.3",
-    "prettier": "^2.7.1"
-  }
+	"name": "coursesapi",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon index.js",
+		"start": "node index.js",
+		"lint": "eslint",
+		"preinstall": "npx npm-force-resolutions"
+	},
+	"resolutions": {
+		"glob-parent": "6.0.1"
+	},
+	"keywords": [],
+	"author": "Leon Angelit <leo63582@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"@hapi/boom": "^10.0.0",
+		"chokidar": "^3.5.3",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.3",
+		"express": "^4.18.1",
+		"mongodb": "^5.2.0",
+		"nodemailer": "^6.7.5",
+		"chrome-aws-lambda": "^10.1.0",
+		"puppeteer": "^21.3.8",
+		"puppeteer-core": "^10.4.0"
+	},
+	"devDependencies": {
+		"eslint": "^8.18.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"nodemon": "^1.3.3",
+		"prettier": "^2.7.1"
+	}
 }
