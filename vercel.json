@@ -1,6 +1,6 @@
 {
 	"version": 2,
-	"buildCommand": "vercel build && npm run preinstall",
+	"buildCommand": "npm install && npm run preinstall",
 	"builds": [
 		{
 			"src": "index.js",
