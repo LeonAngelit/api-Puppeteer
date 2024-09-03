@@ -1,6 +1,8 @@
-const boom = require("@hapi/boom");
 const puppeteer = require("puppeteer-core");
-const edgeChromium = require("@sparticuz/chromium");
+
+const edgeChromium = require("chrome-aws-lambda");
+
+const boom = require("@hapi/boom");
 
 //Creamos la clase que instanciaremos en el archivo courses.js
 class CourseService {
@@ -13,15 +15,12 @@ class CourseService {
 
 	//Pasamos la url y el nombre de usuario como parámetros
 	async #getCourses(url, userName) {
-		const executablePath = await edgeChromium.executablePath();
+		const executablePath = await edgeChromium.executablePath;
 		//Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
-		edgeChromium.setGraphicsMode = false;
-		edgeChromium.setHeadlessMode = true;
 		let browser = await puppeteer.launch({
-			args: edgeChromium.args,
-			defaultViewport: edgeChromium.defaultViewport,
 			executablePath,
-			headless: edgeChromium.headless,
+			headless: true,
+			args: edgeChromium.args,
 			ignoreHTTPSErrors: true,
 		});
 		let page = await browser.newPage();
@@ -33,6 +32,7 @@ class CourseService {
 		await page.setUserAgent(
 			"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
 		);
+		await page.setCacheEnabled(false);
 		//Aquí vamos a la url :), una parte de la url está en una variable de entorno, y la otra es el username es el que le pasamos
 		await page.goto(`${url}${userName}`);
 
