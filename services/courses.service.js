@@ -13,10 +13,7 @@ class CourseService {
 
 	//Pasamos la url y el nombre de usuario como parámetros
 	async #getCourses(url, userName) {
-		await exec("npx playwright install");
-		let browser;
-
-		browser = await chromium.launch({ headless: true });
+		const browser = await chromium.launch({ headless: true });
 		//Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
 		const context = await browser.newContext({
 			userAgent:
