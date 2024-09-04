@@ -1,5 +1,5 @@
-const { chromium } = require("playwright");
-const { exec } = require("child_process");
+const { chromium } = require("playwright-core");
+const edgeChromium = require("chrome-aws-lambda");
 const boom = require("@hapi/boom");
 
 //Creamos la clase que instanciaremos en el archivo courses.js
@@ -13,7 +13,12 @@ class CourseService {
 
 	//Pasamos la url y el nombre de usuario como parámetros
 	async #getCourses(url, userName) {
-		const browser = await chromium.launch({ headless: true });
+		const executablePath = await edgeChromium.executablePath;
+		const browser = await chromium.launch({
+			headless: true,
+			executablePath: executablePath,
+		});
+
 		//Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
 		const context = await browser.newContext({
 			userAgent:
