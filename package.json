@@ -7,7 +7,7 @@
 		"dev": "nodemon index.js",
 		"start": "node index.js",
 		"lint": "eslint",
-		"preinstall": "npx npm-force-resolutions && npx playwright install"
+		"preinstall": "npx npm-force-resolutions &&  npx playwright install-deps  && npx playwright install"
 	},
 	"resolutions": {
 		"glob-parent": "6.0.1"
