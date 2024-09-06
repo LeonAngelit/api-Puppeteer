@@ -15,7 +15,7 @@ class CourseService {
 	async #getCourses(url, userName) {
 		//Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
 		const browser = await puppeteer.launch({
-			headless: true, // Run in headless mode
+			headless: "shell", // Run in headless mode
 			args: ["--no-sandbox", "--disable-setuid-sandbox"], // Required flags for some environments like Vercel
 		});
 		let page = await browser.newPage();
