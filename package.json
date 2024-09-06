@@ -7,7 +7,7 @@
 		"dev": "nodemon index.js",
 		"start": "node index.js",
 		"lint": "eslint",
-		"preinstall": "npx npm-force-resolutions && dnf install -y nss && dnf update -y &&  dnf install -y libnss"
+		"preinstall": "npx npm-force-resolutions && dnf install -y nss && dnf update -y &&  dnf install -y libnspr4"
 	},
 	"resolutions": {
 		"glob-parent": "6.0.1"
