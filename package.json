@@ -7,7 +7,7 @@
 		"dev": "nodemon index.js",
 		"start": "node index.js",
 		"lint": "eslint",
-		"preinstall": "npx npm-force-resolutions && yum install nss -y && yum update nss -y"
+		"preinstall": "npx npm-force-resolutions && yum install nss -y && yum install libnss3-dev && yum update nss -y"
 	},
 	"resolutions": {
 		"glob-parent": "6.0.1"
