@@ -20,7 +20,7 @@ class CourseService {
 		let browser = await puppeteer.launch({
 			executablePath,
 			headless: true,
-			args: edgeChromium.args,
+			args: [...edgeChromium.args, "--no-sandbox"],
 			ignoreHTTPSErrors: true,
 		});
 		let page = await browser.newPage();
