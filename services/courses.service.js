@@ -54,6 +54,10 @@ class CourseService {
 				return array;
 			}
 		});
+		await Promise.race([browser.close(), browser.close(), browser.close()]);
+		for (const page of await browser.pages()) {
+			await page.close();
+		}
 		//Es importante cerrar el browser al terminar
 		await browser.close();
 		//Si finalmente no hemos devuelto datos, devolvemos un error con boom diciendo que no hemos encontrado el nombre de usuario
