@@ -1,5 +1,5 @@
-const puppeteer = require("puppeteer");
-
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium");
 const boom = require("@hapi/boom");
 
 //Creamos la clase que instanciaremos en el archivo courses.js
@@ -13,10 +13,16 @@ class CourseService {
 
 	//Pasamos la url y el nombre de usuario como parámetros
 	async #getCourses(url, userName) {
+		chromium.setHeadlessMode = true;
+
+		// Optional: If you'd like to disable webgl, true is the default.
+		chromium.setGraphicsMode = false;
 		//Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
 		const browser = await puppeteer.launch({
-			headless: "shell", // Run in headless mode
-			args: ["--no-sandbox", "--disable-setuid-sandbox"], // Required flags for some environments like Vercel
+			args: chromium.args,
+			defaultViewport: chromium.defaultViewport,
+			executablePath: await chromium.executablePath(),
+			headless: chromium.headless,
 		});
 		let page = await browser.newPage();
 		await page.setExtraHTTPHeaders({
