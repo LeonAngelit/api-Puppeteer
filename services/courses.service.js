@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer-core");
-const chromium = require("@sparticuz/chromium");
 const boom = require("@hapi/boom");
+const edgeChromium = require("@sparticuz/chromium");
 
 //Creamos la clase que instanciaremos en el archivo courses.js
 class CourseService {
@@ -13,16 +13,14 @@ class CourseService {
 
 	//Pasamos la url y el nombre de usuario como parámetros
 	async #getCourses(url, userName) {
-		chromium.setHeadlessMode = true;
-
-		// Optional: If you'd like to disable webgl, true is the default.
-		chromium.setGraphicsMode = false;
-		//Lanzamos el navegador, la opción no sandbox era necesaria para habilitar puppeteer en la app en heroku
-		const browser = await puppeteer.launch({
-			args: chromium.args,
-			defaultViewport: chromium.defaultViewport,
-			executablePath: await chromium.executablePath(),
-			headless: chromium.headless,
+		const executablePath = await edgeChromium.executablePath();
+		edgeChromium.setGraphicsMode = false;
+		edgeChromium.setHeadlessMode = true;
+		let browser = await puppeteer.launch({
+			args: edgeChromium.args,
+			defaultViewport: edgeChromium.defaultViewport,
+			executablePath,
+			headless: edgeChromium.headless,
 		});
 		let page = await browser.newPage();
 		await page.setExtraHTTPHeaders({
@@ -34,7 +32,7 @@ class CourseService {
 			"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36"
 		);
 		//Aquí vamos a la url :), una parte de la url está en una variable de entorno, y la otra es el username es el que le pasamos
-		await page.goto(`${url}${userName}`);
+		await page.goto(`${url}${userName}`, { waitUntil: "domcontentloaded" });
 		this.courses = await page.evaluate(() => {
 			//Si no hay datos devolvemos undefined
 			if (window.data == undefined) {
@@ -54,7 +52,6 @@ class CourseService {
 				return array;
 			}
 		});
-		await Promise.race([browser.close(), browser.close(), browser.close()]);
 		for (const page of await browser.pages()) {
 			await page.close();
 		}
