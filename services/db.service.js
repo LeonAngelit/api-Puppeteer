@@ -66,7 +66,7 @@ class DBService {
             _id: id,
             courses: element,
           });
-    } catch (err) {
+    } catch (err) { 
       console.error(
         `Something went wrong trying to insert the new documents: ${err}\n`
       );
