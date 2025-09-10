@@ -12,8 +12,8 @@ class VercelService {
     return capitalized.replace("-", " ");
   }
   async #getProjects(url) {
-    console.error("url", url)
-    const response = await axios.get(url, {
+    try{
+const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${process.env.TOKEN}`,
       },
@@ -26,7 +26,13 @@ class VercelService {
     });
 
     return processedProjects;
+    } catch (err)
+    {
+      return `Error trying to fetch url: ${url}, error message: ${err}`
+    }
+    
   }
+
 
   find(url) {
     return this.#getProjects(url);
