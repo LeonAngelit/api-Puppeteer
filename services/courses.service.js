@@ -1,6 +1,3 @@
-const puppeteer = require("puppeteer-core");
-const boom = require("@hapi/boom");
-const edgeChromium = require("@sparticuz/chromium");
 const axios = require("axios");
 
 //Creamos la clase que instanciaremos en el archivo courses.js
