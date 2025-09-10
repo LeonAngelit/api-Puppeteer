@@ -22,10 +22,9 @@ class VercelService {
         return {
           title: this.#normalizeString(el.name),
           image: this.#formatImage(el.productionDeployment.id),
-          url: el.url,
+          url: el.productionDeployment.url,
         };
       });
-
       return processedProjects;
     } catch (err) {
       return `Error trying to fetch url: ${url}, error message: ${err}`;
