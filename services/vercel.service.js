@@ -12,27 +12,25 @@ class VercelService {
     return capitalized.replace("-", " ");
   }
   async #getProjects(url) {
-    try{
-const response = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${process.env.TOKEN}`,
-      },
-    });
-    const processedProjects = response.data.favorites.map((el) => {
-      return {
-        name: this.#normalizeString(el.name),
-        image: this.#formatImage(el.productionDeployment.id),
-      };
-    });
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${process.env.TOKEN}`,
+        },
+      });
+      const processedProjects = response.data.favorites.map((el) => {
+        return {
+          title: this.#normalizeString(el.name),
+          image: this.#formatImage(el.productionDeployment.id),
+          url: el.url,
+        };
+      });
 
-    return processedProjects;
-    } catch (err)
-    {
-      return `Error trying to fetch url: ${url}, error message: ${err}`
+      return processedProjects;
+    } catch (err) {
+      return `Error trying to fetch url: ${url}, error message: ${err}`;
     }
-    
   }
-
 
   find(url) {
     return this.#getProjects(url);
