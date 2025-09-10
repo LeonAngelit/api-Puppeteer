@@ -12,7 +12,7 @@ class VercelService {
     return capitalized.replace("-", " ");
   }
   async #getProjects(url) {
-    console.log(url)
+    console.error("url", url)
     const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${process.env.TOKEN}`,
