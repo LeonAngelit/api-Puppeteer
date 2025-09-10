@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const service = new VercelService();
 const router = express.Router();
-const url = process.env.VERCEL_URL
+const url = process.env.VERCEL_URL_API
 router.get("/", async (req, res, next) => {
   try {
     const response = await service.find(url)
