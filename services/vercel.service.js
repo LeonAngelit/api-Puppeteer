@@ -11,6 +11,16 @@ class VercelService {
       String(val).charAt(0).toUpperCase() + String(val).slice(1);
     return capitalized.replace("-", " ");
   }
+  async #getVercelImage(id) {
+    const url = this.#formatImage(id);
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${process.env.TOKEN}`,
+      },
+      responseType: "arraybuffer",
+    });
+    return response.data;
+  }
   async #getProjects(url) {
     try {
       const response = await axios.get(url, {
@@ -21,7 +31,7 @@ class VercelService {
       const processedProjects = response.data.favorites.map((el) => {
         return {
           title: this.#normalizeString(el.name),
-          image: this.#formatImage(el.productionDeployment.id),
+          image:el.productionDeployment.id,
           url: el.productionDeployment.url,
         };
       });
@@ -29,6 +39,10 @@ class VercelService {
     } catch (err) {
       return `Error trying to fetch url: ${url}, error message: ${err}`;
     }
+  }
+
+  fetchImage(id) {
+    return this.#getVercelImage(id);
   }
 
   find(url) {
