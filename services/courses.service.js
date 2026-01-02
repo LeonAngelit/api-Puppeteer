@@ -4,17 +4,12 @@ const axios = require("axios");
 class CourseService {
   constructor() {
     this.courses = [];
-	this.regex = /window\.data\s*=\s*({[\s\S]*?});/
   }
   async #getCourses(url, userName) {
-    const fullUrl = url + userName;
+    const fullUrl = url + userName + "/";
     const response = await axios.get(fullUrl);
-    const match = response.data.match(this.regex);
-
-    if (match) {
-      const obj = new Function("return " + match[1])(); // Safer than eval
       let array = [];
-      obj.courses.map((curso) => {
+      response?.data?.courses.map((curso) => {
         array.push({
           title: curso.title,
           image: curso.badge,
@@ -22,7 +17,7 @@ class CourseService {
         });
       });
       return array;
-    }
+  
   }
   //Este es el método público que he usado para acceder al privado
   find(url, userName) {
