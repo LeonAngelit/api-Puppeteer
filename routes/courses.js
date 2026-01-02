@@ -14,7 +14,12 @@ router.get("/:userName", async (req, res, next) => {
 	try {
 		const { userName } = req.params;
 		let courses = await db.get(userName);
-		res.json(courses.courses);
+		if(courses){
+			res.json(courses.courses);
+		} else {
+			res.json([])
+		}
+		
 	} catch (error) {
 		next(error);
 	}
